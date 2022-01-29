@@ -24,12 +24,15 @@ def open_file(arg):
 save_button = Button(root, text="Save", command=lambda: save_file(text_editor))
 exit_button = Button(root, text="Exit", command=root.destroy)
 open_button = Button(root, text="Open", command=lambda: open_file(text_editor))
+
 save_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 open_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 exit_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
+
 open_button.grid(row=0, column=3)
-save_button.grid(row=0, column=0)
+save_button.grid(row=0, column=2)
 exit_button.grid(row=0, column=1)
+
 text_editor = Text(root, width=100, height=30)
 text_editor.configure(background='#0D1117', highlightthickness='0', bd='0', fg='#FFFFFF')
 text_editor.grid(row=1, column=0, columnspan=2)
