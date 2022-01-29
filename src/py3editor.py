@@ -13,10 +13,21 @@ def save_file(arg):
     file.write(text_editor.get(1.0, END))
     file.close()
 
+# create function to ask to open file
+def open_file(arg):
+    file_name = filedialog.askopenfilename(defaultextension=".txt")
+    file = open(file_name, "r")
+    text_editor.delete(1.0, END)
+    text_editor.insert(1.0, file.read())
+    file.close()
+
 save_button = Button(root, text="Save", command=lambda: save_file(text_editor))
 exit_button = Button(root, text="Exit", command=root.destroy)
+open_button = Button(root, text="Open", command=lambda: open_file(text_editor))
 save_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
+open_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 exit_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
+open_button.grid(row=0, column=3)
 save_button.grid(row=0, column=0)
 exit_button.grid(row=0, column=1)
 text_editor = Text(root, width=100, height=30)
