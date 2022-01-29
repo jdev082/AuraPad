@@ -42,7 +42,6 @@ text_editor.configure(background='#0D1117', highlightthickness='0', bd='0', fg='
 text_editor.grid(row=1, column=0, columnspan=2)
 text_editor.config(font=("Arial", 12))
 
-
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
 
