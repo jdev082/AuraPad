@@ -8,7 +8,7 @@ and an editor thats fast and gets the job done.
 - Clearing Text
 ![image](https://user-images.githubusercontent.com/92550746/151676976-c10189d4-ab4b-4fe8-81a9-8e019ca8de9a.png)
 # 1.1 Planned Changes
-- [ ] Allow writing to existing file without being prompted for file name
+- [X] Allow writing to existing file without being prompted for file name
 - [ ] Themes
 - [ ] Text highlighting for developers
 - [ ] Plugins
