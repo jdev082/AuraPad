@@ -3,14 +3,17 @@ from tkinter import filedialog
 
 root = Tk()
 root.configure(background='#0D1117')
-root.title("py3editor")
+root.title("AuraPad")
 root.geometry("800x600")
 
-def save_file(arg):
+def saveas_file(arg):
+    global file_name
     file_name = filedialog.asksaveasfilename(defaultextension=".txt")
+    filnm = file_name
     file = open(file_name, "w")
     file.write(text_editor.get(1.0, END))
     file.close()
+    print(file_name)
 
 def open_file(arg):
     file_name = filedialog.askopenfilename(defaultextension=".txt")
@@ -22,18 +25,27 @@ def open_file(arg):
 def clear_text(arg):
     text_editor.delete(1.0, END)
 
+# save to file "file_name"
+def save_file(arg):
+    file = open(file_name, "w")
+    file.write(text_editor.get(1.0, END))
+    file.close()
+
 save_button = Button(root, text="Save", command=lambda: save_file(text_editor))
+saveas_button = Button(root, text="Save As", command=lambda: saveas_file(text_editor))
 exit_button = Button(root, text="Exit", command=root.destroy)
 open_button = Button(root, text="Open", command=lambda: open_file(text_editor))
 clear_button = Button(root, text="Clear", command=lambda: clear_text(text_editor))
 
 save_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
+saveas_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 open_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 exit_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 clear_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 
+save_button.grid(row=0, column=5)
 open_button.grid(row=0, column=3)
-save_button.grid(row=0, column=2)
+saveas_button.grid(row=0, column=2)
 exit_button.grid(row=0, column=1)
 clear_button.grid(row=0, column=4)
 
