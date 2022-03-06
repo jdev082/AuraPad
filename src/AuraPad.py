@@ -57,4 +57,20 @@ text_editor.config(font=("Arial", 12))
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
 
+# the following code is for syntax highlighting
+htmlSyntax = ["<html>", "<style>", "<center>", "<h1>", "<h2>", "<h3>", "<h4>", "<p>"]
+
+# go through the text in text_editor and highlight the words if they are in htmlSyntax
+def highlight_html(event):
+    text = text_editor.get(1.0, END)
+    for word in htmlSyntax:
+        if word in text:
+            text_editor.tag_add("html", "1.0", END)
+            text_editor.tag_config("html", foreground="#FF0000")
+
+# while loop
+while True:
+    highlight_html(text_editor)
+    root.update()
+
 root.mainloop()
