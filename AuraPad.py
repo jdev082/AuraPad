@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 from tkinter import *
+from tkinter import Tk as tk
 from tkinter import filedialog
 
 root = Tk()
 root.configure(background='#0D1117')
 root.title("AuraPad")
 root.geometry("800x600")
+hardcoded_font = ("monospace", 12)
 
 def saveas_file(arg):
     global file_name
@@ -33,18 +35,21 @@ def save_file(arg):
     file.close()
 
 save_button = Button(root, text="Save", command=lambda: save_file(text_editor))
+sel_font = Button(root, text="Change Font", command=lambda: change_font_dialog())
 saveas_button = Button(root, text="Save As", command=lambda: saveas_file(text_editor))
 exit_button = Button(root, text="Exit", command=root.destroy)
 open_button = Button(root, text="Open", command=lambda: open_file(text_editor))
 clear_button = Button(root, text="Clear", command=lambda: clear_text(text_editor))
 
 save_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
+sel_font.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 saveas_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 open_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 exit_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 clear_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 
 save_button.grid(row=0, column=5)
+sel_font.grid(row=0, column=6)
 open_button.grid(row=0, column=3)
 saveas_button.grid(row=0, column=2)
 exit_button.grid(row=0, column=1)
@@ -55,11 +60,29 @@ text_editor.configure(background='#0D1117', highlightthickness='0', bd='0', fg='
 text_editor.grid(row=1, column=0, columnspan=2)
 text_editor.config(font=("Arial", 12))
 
+elems = [sel_font, text_editor, save_button, open_button, saveas_button, exit_button, clear_button]
+
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
 
+def setFont(fontName):
+    for x in elems:
+        x.configure(font = fontName)
+
+def change_font_dialog():
+    top = Tk()
+    top.title = "Set Font"
+    L1 = Label(top, text="Font Name:")
+    L1.pack(side=LEFT)
+    E1 = Entry(top, bd=5)
+    E1.bind("<Return>", (lambda event: setFont(E1.get())))
+    E1.pack(side=RIGHT)
+    top.mainloop()
+
+setFont(hardcoded_font)
+
 # the following code is for syntax highlighting
-htmlSyntax = ["<html>", "<style>", "<center>", "<h1>", "<h2>", "<h3>", "<h4>", "<p>"]
+htmlSyntax = ["<html>", "<style>", "<center>", "<h1>", "<h2>", "<h3>", "<h4>", "<p>", "<i>", "<body>"]
 
 # go through the text in text_editor and highlight the words if they are in htmlSyntax
 def highlight_html(event):
