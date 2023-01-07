@@ -8,3 +8,6 @@ uninstall:
 	sudo rm -rf /usr/bin/aurapad
 	sudo rm -rf /usr/share/applications/AuraPad.desktop
 	sudo rm -rf /opt/apicn.png
+
+check:
+	bash checkdeps.sh
