@@ -1,15 +1,24 @@
 from tkinter import *
 import json
 from os import path
+import pathlib as path
 from tkinter import Tk as tk
 from tkinter import filedialog
+import tkinter.messagebox
 import webview as webengine
 
+file_name = "none"
 root = Tk()
 root.configure(background='#0D1117')
 root.title("AuraPad")
 root.geometry("800x600")
 hardcoded_font = ("monospace", 12)
+
+supported_preview_extensions = [
+    "html",
+    "png",
+    "svg",
+]
 
 def saveas_file(arg):
     global file_name
@@ -21,9 +30,14 @@ def saveas_file(arg):
     print(file_name)
 
 def preview_file(arg):
-    file = open(arg, "r")
-    webengine.create_window('Preview', arg)
-    webengine.start()
+    file_extension = path.Path(arg).suffix
+    for x in supported_preview_extensions:
+        if x in arg:
+            file = open(arg, "r")
+            webengine.create_window('Preview', arg)
+            webengine.start()
+            break
+    tkinter.messagebox.showinfo("Preview Error",  "This file type cannot be previewed!")
 
 def open_file(arg):
     global file_name
