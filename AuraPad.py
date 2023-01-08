@@ -3,6 +3,7 @@ import json
 from os import path
 from tkinter import Tk as tk
 from tkinter import filedialog
+import webview as webengine
 
 root = Tk()
 root.configure(background='#0D1117')
@@ -19,8 +20,15 @@ def saveas_file(arg):
     file.close()
     print(file_name)
 
+def preview_file(arg):
+    file = open(arg, "r")
+    webengine.create_window('Preview', arg)
+    webengine.start()
+
 def open_file(arg):
+    global file_name
     file_name = filedialog.askopenfilename(defaultextension=".txt")
+    print(file_name)
     file = open(file_name, "r")
     text_editor.delete(1.0, END)
     text_editor.insert(1.0, file.read())
@@ -41,6 +49,7 @@ exit_button = Button(root, text="Exit", command=root.destroy)
 open_button = Button(root, text="Open", command=lambda: open_file(text_editor))
 clear_button = Button(root, text="Clear", command=lambda: clear_text(text_editor))
 lang_indic = Label(root, text="None")
+preview_button = Button(root, text="Preview", command=lambda: preview_file(file_name))
 
 save_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 sel_font.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
@@ -49,6 +58,7 @@ open_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0'
 exit_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 clear_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 lang_indic.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
+preview_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 
 save_button.grid(row=0, column=5)
 sel_font.grid(row=0, column=6)
@@ -57,13 +67,14 @@ saveas_button.grid(row=0, column=2)
 exit_button.grid(row=0, column=1)
 clear_button.grid(row=0, column=4)
 lang_indic.grid(row=0, column=7)
+preview_button.grid(row=0, column=8)
 
 text_editor = Text(root, width=100, height=30)
 text_editor.configure(background='#0D1117', highlightthickness='0', bd='0', fg='#FFFFFF')
 text_editor.grid(row=1, column=0, columnspan=2)
 text_editor.config(font=("Arial", 12))
 
-elems = [lang_indic, sel_font, text_editor, save_button, open_button, saveas_button, exit_button, clear_button]
+elems = [preview_button, lang_indic, sel_font, text_editor, save_button, open_button, saveas_button, exit_button, clear_button]
 
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
