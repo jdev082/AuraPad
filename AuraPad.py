@@ -7,6 +7,11 @@ from tkinter import filedialog
 import tkinter.messagebox
 import webview as webengine
 
+# Application Metadata (don't remove)
+global application_version
+application_version = "v1.1.0"
+
+
 file_name = "none"
 root = Tk()
 root.configure(background='#0D1117')
@@ -56,6 +61,7 @@ def save_file(arg):
     file.write(text_editor.get(1.0, END))
     file.close()
 
+about_button = Button(root, text="About", command=lambda: tkinter.messagebox.showinfo("About AuraPad ",  "Version" + application_version))
 save_button = Button(root, text="Save", command=lambda: save_file(text_editor))
 sel_font = Button(root, text="Change Font", command=lambda: change_font_dialog())
 saveas_button = Button(root, text="Save As", command=lambda: saveas_file(text_editor))
@@ -65,6 +71,7 @@ clear_button = Button(root, text="Clear", command=lambda: clear_text(text_editor
 lang_indic = Label(root, text="None")
 preview_button = Button(root, text="Preview", command=lambda: preview_file(file_name))
 
+about_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 save_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 sel_font.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 saveas_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
@@ -82,13 +89,14 @@ exit_button.grid(row=0, column=1)
 clear_button.grid(row=0, column=4)
 lang_indic.grid(row=0, column=7)
 preview_button.grid(row=0, column=8)
+about_button.grid(row=0, column=9)
 
 text_editor = Text(root, width=100, height=30)
 text_editor.configure(background='#0D1117', highlightthickness='0', bd='0', fg='#FFFFFF')
 text_editor.grid(row=1, column=0, columnspan=2)
 text_editor.config(font=("Arial", 12))
 
-elems = [preview_button, lang_indic, sel_font, text_editor, save_button, open_button, saveas_button, exit_button, clear_button]
+elems = [about_button, preview_button, lang_indic, sel_font, text_editor, save_button, open_button, saveas_button, exit_button, clear_button]
 
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
