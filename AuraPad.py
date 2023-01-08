@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
 from tkinter import *
+import json
+from os import path
 from tkinter import Tk as tk
 from tkinter import filedialog
 
@@ -28,7 +29,6 @@ def open_file(arg):
 def clear_text(arg):
     text_editor.delete(1.0, END)
 
-# save to file "file_name"
 def save_file(arg):
     file = open(file_name, "w")
     file.write(text_editor.get(1.0, END))
@@ -40,6 +40,7 @@ saveas_button = Button(root, text="Save As", command=lambda: saveas_file(text_ed
 exit_button = Button(root, text="Exit", command=root.destroy)
 open_button = Button(root, text="Open", command=lambda: open_file(text_editor))
 clear_button = Button(root, text="Clear", command=lambda: clear_text(text_editor))
+lang_indic = Label(root, text="None")
 
 save_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 sel_font.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
@@ -47,6 +48,7 @@ saveas_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='
 open_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 exit_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 clear_button.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
+lang_indic.configure(background='#0D1117', fg='#FFFFFF', highlightthickness='0', bd='0')
 
 save_button.grid(row=0, column=5)
 sel_font.grid(row=0, column=6)
@@ -54,13 +56,14 @@ open_button.grid(row=0, column=3)
 saveas_button.grid(row=0, column=2)
 exit_button.grid(row=0, column=1)
 clear_button.grid(row=0, column=4)
+lang_indic.grid(row=0, column=7)
 
 text_editor = Text(root, width=100, height=30)
 text_editor.configure(background='#0D1117', highlightthickness='0', bd='0', fg='#FFFFFF')
 text_editor.grid(row=1, column=0, columnspan=2)
 text_editor.config(font=("Arial", 12))
 
-elems = [sel_font, text_editor, save_button, open_button, saveas_button, exit_button, clear_button]
+elems = [lang_indic, sel_font, text_editor, save_button, open_button, saveas_button, exit_button, clear_button]
 
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
@@ -81,20 +84,22 @@ def change_font_dialog():
 
 setFont(hardcoded_font)
 
-# the following code is for syntax highlighting
-htmlSyntax = ["<html>", "<style>", "<center>", "<h1>", "<h2>", "<h3>", "<h4>", "<p>", "<i>", "<body>"]
+#def highlight_html(event):
+#    text = text_editor.get(1.0, END)
+#    for word in HTML:
+#        if word in text:
+#            text_editor.tag_add("html", "1.0", END)
+#            text_editor.tag_config("html", foreground="#FF0000")
 
-# go through the text in text_editor and highlight the words if they are in htmlSyntax
-def highlight_html(event):
+def upd_lang_indic(lang):
+    lang_indic.configure(text = lang)
+
+def detect_lang():
     text = text_editor.get(1.0, END)
-    for word in htmlSyntax:
-        if word in text:
-            text_editor.tag_add("html", "1.0", END)
-            text_editor.tag_config("html", foreground="#FF0000")
 
-# while loop
 while True:
-    highlight_html(text_editor)
+    #highlight_html(text_editor)
+    detect_lang()
     root.update()
 
 root.mainloop()
