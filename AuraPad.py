@@ -9,7 +9,7 @@ import webview as webengine
 
 # Application Metadata (don't remove)
 global application_version
-application_version = "v1.1.0"
+application_version = "v1.1.1"
 
 
 file_name = "none"
@@ -61,7 +61,7 @@ def save_file(arg):
     file.write(text_editor.get(1.0, END))
     file.close()
 
-about_button = Button(root, text="About", command=lambda: tkinter.messagebox.showinfo("About AuraPad ",  "Version" + application_version))
+about_button = Button(root, text="About", command=lambda: tkinter.messagebox.showinfo("About AuraPad",  "Version " + application_version))
 save_button = Button(root, text="Save", command=lambda: save_file(text_editor))
 sel_font = Button(root, text="Change Font", command=lambda: change_font_dialog())
 saveas_button = Button(root, text="Save As", command=lambda: saveas_file(text_editor))
